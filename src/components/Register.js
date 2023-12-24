@@ -33,7 +33,8 @@ function Register() {
         },
       });
       let result = await response.json();
-      localStorage.setItem("user-info", result);
+      console.log(result);
+      localStorage.setItem("user-info", JSON.stringify(result));
       if (response.ok) {
         navigate("/venues", { replace: true });
       } else if (response.status === 409) {

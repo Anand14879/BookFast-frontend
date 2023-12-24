@@ -1,11 +1,20 @@
-import { Nav, Navbar, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Nav, Navbar, NavDropdown, Container } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../images/BookFastLogo.png";
 import "../css/Header.css";
 function Header() {
+  const navigate = useNavigate();
+  let user = JSON.parse(localStorage.getItem("user-info"));
+  console.log(JSON.parse(localStorage.getItem("user-info")));
   const redirectToAdminPanel = () => {
     window.location.href = "http://localhost:8000";
   };
+
+  function logOut() {
+    localStorage.clear();
+    navigate("/register", { replace: true });
+  }
+
   return (
     <div>
       <Navbar bg="primary" data-bs-theme="dark">
@@ -57,6 +66,13 @@ function Header() {
                   Admin
                 </button>
               </>
+            )}
+          </Nav>
+          <Nav>
+            {user && (
+              <NavDropdown title={user ? user.name : "Empty"}>
+                <NavDropdown.Item onClick={logOut}>Logout</NavDropdown.Item>
+              </NavDropdown>
             )}
           </Nav>
         </Container>
