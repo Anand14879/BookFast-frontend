@@ -1,0 +1,58 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('../images/loginBackground.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.login-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.card-body {
+    margin: 0;
+}
+
+.login-title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+}
+
+button {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    background-color: #4a148c;
+    /* A purple color */
+    color: white;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #66bb6a;
+    /* A green color */
+}

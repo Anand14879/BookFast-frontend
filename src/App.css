@@ -1,12 +1,16 @@
 .App {
   text-align: center;
 }
-
+.navbar_wrapper a {
+    padding-left: 30px;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
-
+.login_padding a{
+    padding-left: 70px;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

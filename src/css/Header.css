@@ -1,0 +1,26 @@
+.nav-link {
+    font-weight: bold;
+    /* Make the text bolder */
+    font-size: 1.1em;
+    /* Increase font size for better visibility */
+    color: white;
+    /* Set a text color, if you want a different one than the default */
+}
+
+.nav-link:hover {
+    color: #fff;
+    /* Color on hover */
+    text-decoration: none;
+    /* Remove the underline on hover */
+    background-color: rgba(255, 255, 255, 0.2);
+    /* Light background on hover */
+    border-radius: 0.25rem;
+    /* Rounded corners for the hover background */
+}
+
+.active {
+    text-decoration: underline;
+    /* Underline the active nav item */
+    background-color: rgba(255, 255, 255, 0.3);
+    /* Different background for active link */
+}

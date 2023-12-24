@@ -1,0 +1,61 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120vh;
+    width:100%;
+    background-image: url('../images/BackgroundPic.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    background-repeat:no-repeat;
+    z-index: 1;
+}
+
+.register-card {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.card-body {
+    margin: 0;
+}
+
+.register-title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+}
+
+button {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    background-color: #6a1b9a;
+    color: white;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4caf50;
+}
