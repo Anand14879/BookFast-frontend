@@ -7,7 +7,7 @@ function Header() {
   let user = JSON.parse(localStorage.getItem("user-info"));
   console.log(JSON.parse(localStorage.getItem("user-info")));
   const redirectToAdminPanel = () => {
-    window.location.href = "http://localhost:8000";
+    window.location.href = "http://localhost:8000/admin/login";
   };
 
   function logOut() {
