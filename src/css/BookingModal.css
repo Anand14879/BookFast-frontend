@@ -1,5 +1,5 @@
 /* BookingModal.css */
-.modal {
+.myAppModal {
     position: fixed;
     top: 0;
     left: 0;
@@ -12,7 +12,7 @@
     /* High z-index to ensure it's above other content */
 }
 
-.modal-content {
+.myAppModal-content {
     background: white;
     padding: 20px;
     border-radius: 5px;
@@ -21,7 +21,7 @@
     /* Above the overlay */
 }
 
-.modal-overlay {
+.myAppModal-overlay {
     position: absolute;
     top: 0;
     left: 0;

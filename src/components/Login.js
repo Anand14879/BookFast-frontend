@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../css/Login.css"; // Make sure this CSS file is created with the styles for your login form
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import BookingModal from "./BookingModal"; // Import the Modal component
+import FacilitiesList from "./FacilitiesList";
+import CategoryFacilityList from "./CategoryFacilityList";
 
 const Home = () => {
   const [facilities, setFacilities] = useState([]);
@@ -34,10 +36,17 @@ const Home = () => {
 
     fetchFacilities();
   }, []);
+
   const handleBookNowClick = (facilityId) => {
-    setSelectedFacilityId(facilityId);
-    setIsModalOpen(true);
+    // console.log(userId);
+    if (userId) {
+      setSelectedFacilityId(facilityId);
+      setIsModalOpen(true);
+    } else {
+      window.location.href = "http://localhost:3000/login";
+    }
   };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
@@ -45,37 +54,16 @@ const Home = () => {
   return (
     <>
       <Header />
-      <div>
-        <h1>Most Popular Venues</h1>
-        {error && <p>{error}</p>}
-        {Array.isArray(facilities) &&
-          facilities.map((facility) => (
-            <div key={facility.id}>
-              {facility.Facility_Image ? (
-                <img
-                  src={facility.Facility_Image}
-                  alt={facility.Name || "Facility image"}
-                />
-              ) : (
-                <p>No image available</p>
-              )}
-              <h2>{facility.Name || "No name"}</h2>
-              <p>
-                Description:{" "}
-                {facility.Description || "No description available"}
-              </p>
-              <p>Capacity: {facility.Capacity || "No capacity mentioned"}</p>
-              <p>Category: {facility.Category || "No category mentioned"}</p>
-              <p>
-                Daily-Cost: Rs.{" "}
-                {facility.Daily_Cost || "No description available"}
-              </p>
-              <button onClick={() => handleBookNowClick(facility.id)}>
-                Book Now
-              </button>
-            </div>
-          ))}
-      </div>
+      <CategoryFacilityList
+        facilities={facilities}
+        handleBookNowClick={handleBookNowClick}
+        HeaderName={"Categories"}
+      />
+      <FacilitiesList
+        facilities={facilities}
+        handleBookNowClick={handleBookNowClick}
+        HeaderName={"Popular Venues"}
+      />
       <BookingModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}

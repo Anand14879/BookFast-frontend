@@ -1,0 +1,81 @@
+/* Add this to your FacilitiesList.css */
+
+.myfacility-container {
+    display: flex;
+    align-items: center;
+    /* Align items vertically */
+    justify-content: center;
+    /* Center the items horizontally */
+    gap: 30px;
+    /* Add space between items */
+}
+
+.myfacilities {
+    display: flex;
+    flex-wrap: nowrap;
+    /* Ensure items are in a single line */
+    gap: 30px;
+    /* Add space between facilities */
+}
+
+.myfacility {
+    display: flex;
+    flex-direction: column;
+    /* Stack items vertically */
+    justify-content: space-between;
+    /* Space between items */
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    width: 300px;
+    /* Set a fixed width for each facility card */
+    height: 100%;
+    /* Set a height to ensure all cards are the same */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    flex: 0 0 auto;
+    /* Do not grow, do not shrink, basis is auto */
+}
+
+.mynavigation-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+    font-size: 24px;
+    align-self: center;
+    /* Center button vertically */
+}
+
+.myfacility-image {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+/* New styles to ensure the button is always at the bottom */
+.myfacility-content {
+    flex: 1;
+    /* This will make the content flex and push the footer down */
+    display: flex;
+    flex-direction: column;
+}
+
+.myfacility-footer {
+    margin-top: auto;
+    /* This pushes the footer to the bottom */
+}
+
+/* Add to FacilitiesList.css */
+
+.category-selector {
+    margin-bottom: 20px;
+    /* Add some space below the dropdown */
+}
+
+.category-selector select {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
