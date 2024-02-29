@@ -12,7 +12,7 @@ function Header() {
 
   function logOut() {
     localStorage.clear();
-    navigate("/register", { replace: true });
+    navigate("/home", { replace: true });
   }
 
   return (

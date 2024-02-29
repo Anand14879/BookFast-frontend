@@ -11,6 +11,12 @@ function Login() {
 
   async function logIn(e) {
     e.preventDefault();
+
+    if (!email || !password) {
+      setError("Please enter both email and password.");
+      return;
+    }
+
     let item = { email, password };
     let response = await fetch("http://127.0.0.1:8000/api/login", {
       method: "POST",
@@ -20,12 +26,22 @@ function Login() {
         Accept: "application/json",
       },
     });
+    // let result = await response.json();
+    // localStorage.setItem("user-info", JSON.stringify(result));
+    // if (response.ok) {
+    //   navigate("/venues", { replace: true });
+    // } else {
+    //   setError(result.message || "An error occurred during registration.");
+    // }
+
     let result = await response.json();
-    localStorage.setItem("user-info", JSON.stringify(result));
+
     if (response.ok) {
+      localStorage.setItem("user-info", JSON.stringify(result));
       navigate("/venues", { replace: true });
     } else {
-      setError(result.message || "An error occurred during registration.");
+      setError(result.error || "Invalid email or password."); // Display the error
+      // Do not store anything in local storage
     }
   }
 

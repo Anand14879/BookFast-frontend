@@ -12,6 +12,7 @@ const BookingModal = ({ isOpen, onClose, facilityId, userId }) => {
         <h2>Book Facility (ID: {facilityId})</h2>
         <h2>User (ID: {userId})</h2>
         {/* Add form or booking details here */}
+
         <button onClick={onClose}>Close</button>
       </div>
       <div className="myAppModal-overlay" onClick={onClose} />
