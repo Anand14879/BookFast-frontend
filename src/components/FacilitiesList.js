@@ -42,6 +42,7 @@ const FacilitiesList = ({ facilities, handleBookNowClick, HeaderName }) => {
                 <p>No image available</p>
               )}
               <h2>{facility.Name || "No name"}</h2>
+              <h4>{facility.Institution_Name || "No Name"}</h4>
               <p>
                 Description:{" "}
                 {facility.Description || "No description available"}
