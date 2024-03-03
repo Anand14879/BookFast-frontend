@@ -15,7 +15,6 @@ const BookingModal = ({ isOpen, onClose, facilityId, userId }) => {
       }
       const data = await response.json();
       setSlots(data);
-      // Optionally, pre-select the first slot
       if (data.length > 0) {
         setSelectedSlot(data[0].id);
       }
@@ -49,40 +48,38 @@ const BookingModal = ({ isOpen, onClose, facilityId, userId }) => {
     );
   };
 
+  const closeAndHandleResponse = async (response) => {
+    if (!response.ok) {
+      console.error(
+        "Server response not OK:",
+        response.status,
+        response.statusText
+      );
+      const errorText = await response.text();
+      console.error("Server response:", errorText);
+    } else {
+      const data = await response.json();
+      console.log(data.message);
+      onClose(); // Close the modal after successful operation
+    }
+  };
+
   const saveForLater = async () => {
     try {
       const response = await fetch("http://127.0.0.1:8000/api/saveforlater", {
-        // Ensure this URL is correct
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // Include authentication tokens if required
         },
         body: JSON.stringify({
-          user_id: userId, // Ensure the keys match those expected by the server
+          user_id: userId,
           facility_id: facilityId,
           slot_id: selectedSlot,
         }),
       });
-
-      if (!response.ok) {
-        // If the server response is not ok, log the status and statusText
-        console.error(
-          "Server response not OK:",
-          response.status,
-          response.statusText
-        );
-        const errorText = await response.text(); // Read the text from the response
-        console.error("Server response:", errorText);
-        // Handle non-OK response here, perhaps set an error message in your state
-      } else {
-        const data = await response.json();
-        console.log(data.message);
-        // Handle successful response here
-      }
+      await closeAndHandleResponse(response);
     } catch (error) {
       console.error("Failed to save the slot for later:", error);
-      // Handle fetch errors here
     }
   };
 
@@ -91,38 +88,20 @@ const BookingModal = ({ isOpen, onClose, facilityId, userId }) => {
       const response = await fetch(
         "http://127.0.0.1:8000/api/completebooking",
         {
-          // Ensure this URL is correct
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            // Include authentication tokens if required
           },
           body: JSON.stringify({
-            user_id: userId, // Ensure the keys match those expected by the server
+            user_id: userId,
             facility_id: facilityId,
             slot_id: selectedSlot,
           }),
         }
       );
-
-      if (!response.ok) {
-        // If the server response is not ok, log the status and statusText
-        console.error(
-          "Server response not OK:",
-          response.status,
-          response.statusText
-        );
-        const errorText = await response.text(); // Read the text from the response
-        console.error("Server response:", errorText);
-        // Handle non-OK response here, perhaps set an error message in your state
-      } else {
-        const data = await response.json();
-        console.log(data.message);
-        // Handle successful response here
-      }
+      await closeAndHandleResponse(response);
     } catch (error) {
-      console.error("Failed to save the slot for later:", error);
-      // Handle fetch errors here
+      console.error("Failed to complete the booking:", error);
     }
   };
 
@@ -133,11 +112,15 @@ const BookingModal = ({ isOpen, onClose, facilityId, userId }) => {
       <div className="myAppModal-content">
         <h2>Book Facility (ID: {facilityId})</h2>
         <h2>User (ID: {userId})</h2>
-        {slots.length > 0 ? renderSlots() : <p>No available slots.</p>}
-        {/* Add form or booking details here */}
-        <button onClick={saveForLater}>Save For Later</button>
-        <button onClick={completeBooking}>Complete Booking</button>
-
+        {slots.length > 0 ? (
+          <>
+            {renderSlots()}
+            <button onClick={saveForLater}>Save For Later</button>
+            <button onClick={completeBooking}>Complete Booking</button>
+          </>
+        ) : (
+          <p>No available slots.</p>
+        )}
         <button onClick={onClose}>Close</button>
       </div>
       <div className="myAppModal-overlay" onClick={onClose} />
