@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "../css/CategoryBookingList.css";
 
+//Here the main aim is to sort out the bookings based on their category/status
+
 const CategoryBookingList = ({ bookings, HeaderName }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedStatus, setSelectedStatus] = useState("All");

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import "../css/FacilitiesList.css";
 
+//This is used to make the list of facilities avaiable in the database
 const FacilitiesList = ({ facilities, handleBookNowClick, HeaderName }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const facilitiesPerPage = 3;

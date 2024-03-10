@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import CategoryBookingsList from "./CategoryBookingList";
-
+//This is the bookings page where we can see all of the bookings made or which are pending
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
   const [error, setError] = useState(null);

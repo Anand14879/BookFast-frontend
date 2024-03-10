@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import "../css/BookingModal.css";
-
+//When the user clicks on book now, this modal opens up
 const BookingModal = ({ isOpen, onClose, facilityId, userId }) => {
   const [slots, setSlots] = useState([]);
   const [selectedSlot, setSelectedSlot] = useState("");

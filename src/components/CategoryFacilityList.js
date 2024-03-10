@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import "../css/FacilitiesList.css";
 
+// This is used to sort out the facilities on the basis of the categories available
 const CategoryFacilityList = ({
   facilities,
   handleBookNowClick,
