@@ -1,12 +1,25 @@
 import React, { useState } from "react";
 import "../css/CategoryBookingList.css";
+import PaymentModal from "./PaymentModal";
 
 //Here the main aim is to sort out the bookings based on their category/status
-
 const CategoryBookingList = ({ bookings, HeaderName }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedStatus, setSelectedStatus] = useState("All");
+  //Below are to handle payment
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [selectedBooking, setSelectedBooking] = useState(null);
   const bookingsPerPage = 3;
+
+  //code to open payment modal
+  const openPaymentModal = (booking) => {
+    setSelectedBooking(booking);
+    setShowPaymentModal(true);
+  };
+  //code to close payment modal
+  const closePaymentModal = () => {
+    setShowPaymentModal(false);
+  };
 
   const lastIndex = currentPage * bookingsPerPage + bookingsPerPage;
   const firstIndex = lastIndex - bookingsPerPage;
@@ -46,7 +59,15 @@ const CategoryBookingList = ({ bookings, HeaderName }) => {
         <p>Facility Id: {booking.facility_id}</p>
         <p>Slot Id: {booking.slot_id}</p>
         <p>Status: {booking.status}</p>
-        <button className={`action-button ${buttonClass}`}>{buttonText}</button>
+        {/* <button className={`action-button ${buttonClass}`}>{buttonText}</button> */}
+        {booking.status === "Booked" && (
+          <button
+            className={`action-button ${buttonClass}`}
+            onClick={() => openPaymentModal(booking)}
+          >
+            {buttonText}
+          </button>
+        )}
       </div>
     );
   };
@@ -88,6 +109,9 @@ const CategoryBookingList = ({ bookings, HeaderName }) => {
           Next &#8594;
         </button>
       </div>
+      {showPaymentModal && (
+        <PaymentModal booking={selectedBooking} onClose={closePaymentModal} />
+      )}
     </div>
   );
 };
