@@ -10,10 +10,58 @@ const CategoryBookingList = ({ bookings, HeaderName }) => {
   //Below are to handle payment
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [showBookingModal, setShowBookingModal] = useState(false);
-
   const [selectedBooking, setSelectedBooking] = useState(null);
   const bookingsPerPage = 3;
 
+  const refundPayment = async (booking) => {
+    if (!booking || !booking.id) {
+      console.error("Invalid booking details provided.");
+      return;
+    }
+
+    try {
+      // Assuming the endpoint is `/api/booking/refund/{bookingId}`
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/booking/refund/${booking.id}`,
+        {
+          method: "POST", // this could be a POST or PUT request
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      window.location.reload();
+      if (!response.ok) {
+        throw new Error("Failed to process refund.");
+      }
+    } catch (error) {
+      console.error("Error processing refund:", error.message);
+    }
+  };
+
+  const deleteBooking = async (booking) => {
+    if (!booking || !booking.id) {
+      console.error("Invalid booking details provided.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/booking/${booking.id}`,
+        {
+          method: "DELETE", // Matching the HTTP method we defined in our Laravel route
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete booking.");
+      }
+
+      window.location.reload(); // Close the modal after successful booking
+    } catch (error) {
+      console.error("Error deleting booking:", error.message);
+    }
+  };
   //code to open payment modal
   const openPaymentModal = (booking) => {
     setSelectedBooking(booking);
@@ -88,6 +136,21 @@ const CategoryBookingList = ({ bookings, HeaderName }) => {
             onClick={() => openBookingModal(booking)}
           >
             {buttonText}
+          </button>
+        )}
+        {booking.status === "Booked" && (
+          <button className="delete" onClick={() => deleteBooking(booking)}>
+            Delete Booking
+          </button>
+        )}
+        {booking.status === "Pending" && (
+          <button className="delete" onClick={() => deleteBooking(booking)}>
+            Cancel
+          </button>
+        )}
+        {booking.status === "Paid" && (
+          <button className="delete" onClick={() => refundPayment(booking)}>
+            Refund
           </button>
         )}
       </div>

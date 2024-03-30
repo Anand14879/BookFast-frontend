@@ -1,15 +1,55 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../css/PaymentModal.css";
-//The Payment Modal is there to make payment of the booking possible
-const PaymentModal = ({ booking, onClose }) => {
-  if (!booking) return null; // Don't render the modal if there's no booking.
 
-  // Implement payment processing logic here...
-  const processPayment = () => {
-    console.log("Processing payment for", booking.id);
-    // You would have your payment logic here or call to an API
-    onClose(); // Close the modal after processing the payment
+const PaymentModal = ({ booking, onClose }) => {
+  const [amount, setAmount] = useState(0);
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  useEffect(() => {
+    const fetchFacilityDetails = async () => {
+      // Assuming you have an endpoint `/api/facility/details` that accepts a facility_id and returns facility details
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/facility/details?facility_id=${booking.facility_id}`
+      );
+      const data = await response.json();
+      setAmount(data.Daily_Cost); // Set the fetched amount
+    };
+
+    if (booking) {
+      fetchFacilityDetails();
+    }
+  }, [booking]);
+
+  const processPayment = async () => {
+    setIsProcessing(true);
+    try {
+      // Assuming `/api/payment/add` is your endpoint for adding a new payment
+      const response = await fetch("http://127.0.0.1:8000/api/payment/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount,
+          payment_date: new Date().toISOString().slice(0, 10), // e.g., YYYY-MM-DD
+          payment_status: "completed", // Assuming a simple status
+          booking_id: booking.id,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Payment processing failed");
+      }
+      window.location.reload();
+      onClose(); // Close the modal after processing the payment
+    } catch (error) {
+      console.error("Payment error:", error);
+    } finally {
+      setIsProcessing(false);
+    }
   };
+
+  if (!booking) return null;
 
   return (
     <div className="payment-modal-backdrop">
@@ -17,8 +57,10 @@ const PaymentModal = ({ booking, onClose }) => {
         <h2>Payment for Booking #{booking.id}</h2>
         <p>Facility Id: {booking.facility_id}</p>
         <p>Slot Id: {booking.slot_id}</p>
-        <p>Total Amount: {/* Calculate and show the total amount here */}</p>
-        <button onClick={processPayment}>Confirm Payment</button>
+        <p>Total Amount: {amount}</p>
+        <button onClick={processPayment} disabled={isProcessing}>
+          Confirm Payment
+        </button>
         <button onClick={onClose}>Cancel</button>
       </div>
     </div>
