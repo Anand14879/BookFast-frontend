@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../css/CategoryBookingList.css";
 import PaymentModal from "./PaymentModal";
+import BookingModalAgain from "./BookingModalAgain";
 
 //Here the main aim is to sort out the bookings based on their category/status
 const CategoryBookingList = ({ bookings, HeaderName }) => {
@@ -8,6 +9,8 @@ const CategoryBookingList = ({ bookings, HeaderName }) => {
   const [selectedStatus, setSelectedStatus] = useState("All");
   //Below are to handle payment
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [showBookingModal, setShowBookingModal] = useState(false);
+
   const [selectedBooking, setSelectedBooking] = useState(null);
   const bookingsPerPage = 3;
 
@@ -19,6 +22,16 @@ const CategoryBookingList = ({ bookings, HeaderName }) => {
   //code to close payment modal
   const closePaymentModal = () => {
     setShowPaymentModal(false);
+  };
+
+  //code to open booking modal
+  const openBookingModal = (booking) => {
+    setSelectedBooking(booking);
+    setShowBookingModal(true);
+  };
+  //code to close close modal
+  const closeBookingModal = () => {
+    setShowBookingModal(false);
   };
 
   const lastIndex = currentPage * bookingsPerPage + bookingsPerPage;
@@ -68,6 +81,15 @@ const CategoryBookingList = ({ bookings, HeaderName }) => {
             {buttonText}
           </button>
         )}
+
+        {booking.status === "Pending" && (
+          <button
+            className={`action-button ${buttonClass}`}
+            onClick={() => openBookingModal(booking)}
+          >
+            {buttonText}
+          </button>
+        )}
       </div>
     );
   };
@@ -111,6 +133,12 @@ const CategoryBookingList = ({ bookings, HeaderName }) => {
       </div>
       {showPaymentModal && (
         <PaymentModal booking={selectedBooking} onClose={closePaymentModal} />
+      )}
+      {showBookingModal && (
+        <BookingModalAgain
+          booking={selectedBooking}
+          onClose={closeBookingModal}
+        />
       )}
     </div>
   );
