@@ -4,6 +4,10 @@ import PaymentModal from "./PaymentModal";
 import BookingModalAgain from "./BookingModalAgain";
 import bookingLogo from "../images/booked.png";
 import pendingLogo from "../images/pending.png";
+import paidLogo from "../images/paid.png";
+import refundedLogo from "../images/refunded.png";
+import defaultLogo from "../images/default.png";
+
 //Here the main aim is to sort out the bookings based on their category/status
 const CategoryBookingList = ({ bookings, HeaderName }) => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -109,10 +113,23 @@ const CategoryBookingList = ({ bookings, HeaderName }) => {
   };
 
   const renderCard = (booking) => {
-    const imageSrc =
-      booking.status === "Booked"
-        ? bookingLogo
-        : pendingLogo;
+    let imageSrc;
+    switch (booking.status) {
+      case "Booked":
+        imageSrc = bookingLogo;
+        break;
+      case "Pending":
+        imageSrc = pendingLogo;
+        break;
+      case "Paid":
+        imageSrc = paidLogo;
+        break;
+      case "Refunded":
+        imageSrc = refundedLogo;
+        break;
+      default:
+        imageSrc = defaultLogo; // If there's a default logo for other cases
+    }
     const buttonText =
       booking.status === "Booked" ? "Pay Now" : "Complete Booking";
     const buttonClass =
