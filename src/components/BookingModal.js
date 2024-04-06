@@ -14,6 +14,8 @@ const BookingModal = ({
   const [slots, setSlots] = useState([]);
   const [selectedSlot, setSelectedSlot] = useState("");
   const facility = facilities.find((facility) => facility.id === facilityId);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
 
   const fetchSlots = useCallback(async () => {
     try {
@@ -58,19 +60,32 @@ const BookingModal = ({
     );
   };
 
-  const closeAndHandleResponse = async (response) => {
-    if (!response.ok) {
-      console.error(
-        "Server response not OK:",
-        response.status,
-        response.statusText
-      );
-      const errorText = await response.text();
-      console.error("Server response:", errorText);
-    } else {
-      const data = await response.json();
-      console.log(data.message);
-      onClose(); // Close the modal after successful operation
+  const displayPopup = (message) => {
+    setPopupMessage(message);
+    setShowPopup(true);
+    setTimeout(() => setShowPopup(false), 3000);
+  };
+
+  const closeAndHandleResponse = async (response, successMessage) => {
+    try {
+      const responseBody = await response.json();
+      if (!response.ok) {
+        throw new Error(
+          responseBody.message || "There was an error processing your request."
+        );
+      }
+      console.log(responseBody.message);
+      displayPopup(successMessage);
+
+      // Set a timeout to close the modal AFTER the pop-up disappears
+      setTimeout(() => {
+        onClose(); // Close the modal after the pop-up has been displayed for 3 seconds
+      }, 3000);
+    } catch (error) {
+      console.error("Server response not OK:", error);
+      displayPopup(error.toString());
+      // We may not want to close the modal immediately if there is an error,
+      // to give the user a chance to read the message and decide on next steps.
     }
   };
 
@@ -87,9 +102,13 @@ const BookingModal = ({
           slot_id: selectedSlot,
         }),
       });
-      await closeAndHandleResponse(response);
+      await closeAndHandleResponse(
+        response,
+        "Your booking is saved as pending."
+      );
     } catch (error) {
       console.error("Failed to save the slot for later:", error);
+      displayPopup("Failed to save the slot. Please try again later.");
     }
   };
 
@@ -109,9 +128,10 @@ const BookingModal = ({
           }),
         }
       );
-      await closeAndHandleResponse(response);
+      await closeAndHandleResponse(response, "You have booked this facility.");
     } catch (error) {
       console.error("Failed to complete the booking:", error);
+      displayPopup("Failed to complete the booking. Please try again later.");
     }
   };
 
@@ -120,6 +140,8 @@ const BookingModal = ({
   return (
     <div className="myAppModal">
       <div className="myAppModal-content">
+        {showPopup && <div className="popup">{popupMessage}</div>}
+
         <img
           src={
             facility && facility.Facility_Image === "general.jpg"
@@ -151,8 +173,10 @@ const BookingModal = ({
         ) : (
           <p>No available slots.</p>
         )}
+
         <button onClick={onClose}>Close</button>
       </div>
+
       <div className="myAppModal-overlay" onClick={onClose}></div>
     </div>
   );
