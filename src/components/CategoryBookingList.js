@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../css/CategoryBookingList.css";
+import FacilitySlot from "./FacilitySlot";
 import PaymentModal from "./PaymentModal";
 import BookingModalAgain from "./BookingModalAgain";
 import bookingLogo from "../images/booked.png";
@@ -138,8 +139,12 @@ const CategoryBookingList = ({ bookings, HeaderName }) => {
     return (
       <div className="booking-card" key={booking.id}>
         <img src={imageSrc} alt={booking.status} className="status-image" />
-        <p>Facility Id: {booking.facility_id}</p>
-        <p>Slot Id: {booking.slot_id}</p>
+        {/* <p>Facility Id: {booking.facility_id}</p>
+        <p>Slot Id: {booking.slot_id}</p> */}
+        <FacilitySlot
+          facilityId={booking.facility_id}
+          slotId={booking.slot_id}
+        />
         <p>Status: {booking.status}</p>
         {/* <button className={`action-button ${buttonClass}`}>{buttonText}</button> */}
         {booking.status === "Booked" && (
