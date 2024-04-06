@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import "../css/CategoryBookingList.css";
 import PaymentModal from "./PaymentModal";
 import BookingModalAgain from "./BookingModalAgain";
-
+import bookingLogo from "../images/booked.png";
+import pendingLogo from "../images/pending.png";
 //Here the main aim is to sort out the bookings based on their category/status
 const CategoryBookingList = ({ bookings, HeaderName }) => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -108,7 +109,10 @@ const CategoryBookingList = ({ bookings, HeaderName }) => {
   };
 
   const renderCard = (booking) => {
-    const imageSrc = booking.status === "Booked" ? "booked.png" : "pending.png";
+    const imageSrc =
+      booking.status === "Booked"
+        ? bookingLogo
+        : pendingLogo;
     const buttonText =
       booking.status === "Booked" ? "Pay Now" : "Complete Booking";
     const buttonClass =

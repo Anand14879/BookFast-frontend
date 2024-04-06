@@ -1,6 +1,8 @@
 // FacilitiesList.js
 import React, { useState } from "react";
 import "../css/FacilitiesList.css";
+import generalLogo from "../images/general.jpg";
+import sportLogo from "../images/sport.jpg";
 
 // This is used to sort out the facilities on the basis of the categories available
 const CategoryFacilityList = ({
@@ -68,14 +70,18 @@ const CategoryFacilityList = ({
         <div className="myfacilities">
           {currentFacilities.map((facility) => (
             <div className="myfacility" key={facility.id}>
-              {facility.Facility_Image ? (
+              {facility.Facility_Image === "general.jpg" ? (
                 <img
-                  src={facility.Facility_Image}
+                  src={generalLogo}
                   alt={facility.Name || "Facility image"}
                   className="myfacility-image"
                 />
               ) : (
-                <p>No image available</p>
+                <img
+                  src={sportLogo}
+                  alt={facility.Name || "Facility image"}
+                  className="myfacility-image"
+                />
               )}
               <h2>{facility.Name || "No name"}</h2>
               <h4>{facility.Institution_Name || "No Name"}</h4>

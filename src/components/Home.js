@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import BookingModal from "./BookingModal"; // Import the Modal component
-import FacilitiesList from "./FacilitiesList";
+// import FacilitiesList from "./FacilitiesList";
 import CategoryFacilityList from "./CategoryFacilityList";
 
 const Home = () => {
@@ -59,11 +59,11 @@ const Home = () => {
         handleBookNowClick={handleBookNowClick}
         HeaderName={"Categories"}
       />
-      <FacilitiesList
+      {/* <FacilitiesList
         facilities={facilities}
         handleBookNowClick={handleBookNowClick}
         HeaderName={"Popular Venues"}
-      />
+      /> */}
       <BookingModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
