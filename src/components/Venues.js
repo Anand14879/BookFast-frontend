@@ -8,6 +8,8 @@ const Venues = () => {
   const [facilities, setFacilities] = useState([]);
   const [error, setError] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [userName, setUserName] = useState(null);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFacilityId, setSelectedFacilityId] = useState(null);
 
@@ -15,6 +17,7 @@ const Venues = () => {
     const userInfo = localStorage.getItem("user-info");
     if (userInfo) {
       const user = JSON.parse(userInfo);
+      setUserName(user.name);
       setUserId(user.id); // Assuming that the ID is stored with the key 'id'
     }
     const fetchFacilities = async () => {
@@ -64,6 +67,8 @@ const Venues = () => {
         onClose={handleCloseModal}
         facilityId={selectedFacilityId}
         userId={userId}
+        userName={userName}
+        facilities={facilities}
       />
     </>
   );

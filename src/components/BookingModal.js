@@ -1,9 +1,19 @@
 import React, { useEffect, useState, useCallback } from "react";
 import "../css/BookingModal.css";
-//When the user clicks on book now, this modal opens up
-const BookingModal = ({ isOpen, onClose, facilityId, userId }) => {
+import generalLogo from "../images/general.jpg";
+import sportLogo from "../images/sport.jpg";
+
+const BookingModal = ({
+  isOpen,
+  onClose,
+  facilityId,
+  userId,
+  userName,
+  facilities,
+}) => {
   const [slots, setSlots] = useState([]);
   const [selectedSlot, setSelectedSlot] = useState("");
+  const facility = facilities.find((facility) => facility.id === facilityId);
 
   const fetchSlots = useCallback(async () => {
     try {
@@ -110,8 +120,28 @@ const BookingModal = ({ isOpen, onClose, facilityId, userId }) => {
   return (
     <div className="myAppModal">
       <div className="myAppModal-content">
+        <img
+          src={
+            facility && facility.Facility_Image === "general.jpg"
+              ? generalLogo
+              : sportLogo
+          }
+          alt={facility ? facility.Name : "Facility"}
+          className="myfacility-image"
+        />
         <h2>Book Facility (ID: {facilityId})</h2>
         <h2>User (ID: {userId})</h2>
+        <h2>User (Name: {userName})</h2>
+        {facility ? (
+          <>
+            <h2>Facility (Name: {facility.Name})</h2>
+            <div className="facility-description">
+              <p>Facility (Description: {facility.Description})</p>
+            </div>
+          </>
+        ) : (
+          <p>Facility details not found.</p>
+        )}
         {slots.length > 0 ? (
           <>
             {renderSlots()}
@@ -123,7 +153,7 @@ const BookingModal = ({ isOpen, onClose, facilityId, userId }) => {
         )}
         <button onClick={onClose}>Close</button>
       </div>
-      <div className="myAppModal-overlay" onClick={onClose} />
+      <div className="myAppModal-overlay" onClick={onClose}></div>
     </div>
   );
 };

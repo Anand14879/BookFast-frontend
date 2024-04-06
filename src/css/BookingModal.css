@@ -18,12 +18,20 @@
     border-radius: 5px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     z-index: 1001;
-
     /* Above the overlay */
+    width: auto;
+    /* This will ensure that modal is responsive */
+    max-width: 90%;
+    /* This prevents the modal from being too wide on large screens */
+    max-height: 90vh;
+    /* This limits the height of the modal */
+    overflow-y: auto;
+    /* Allows scrolling if content is too tall */
 }
 
 .myAppModal-overlay {
-    position: absolute;
+    position: fixed;
+    /* Changed to fixed to ensure full overlay coverage */
     top: 0;
     left: 0;
     width: 100%;
@@ -33,16 +41,16 @@
     cursor: pointer;
 }
 
-button{
+button {
     background-color: #6200EE;
-        /* Example primary color */
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        margin: 10px;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s;
+    /* Example primary color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 button:hover {
@@ -61,4 +69,45 @@ select {
     margin: 10px 0;
     border-radius: 4px;
     border: 1px solid #ccc;
+}
+
+.myfacility-image {
+    max-width: 100%;
+    /* Makes sure the image is responsive and doesn't overflow */
+    max-height: 200px;
+    /* Adjust this value as needed */
+    margin-bottom: 20px;
+    /* Adds some space below the image */
+    display: block;
+    /* Ensures image is treated as block-level for centering */
+    margin-left: auto;
+    /* Center image */
+    margin-right: auto;
+}
+
+.facility-description {
+    word-wrap: break-word;
+    max-width: 100%;
+    /* Prevents the description from stretching beyond the modal's width */
+    overflow-y: auto;
+    /* Allows for a vertical scrollbar if content is too long */
+    margin-bottom: 20px;
+    /* Adds some space below the description */
+}
+
+@media (max-width: 768px) {
+    .myAppModal-content {
+        padding: 20px;
+        /* Reduces padding on smaller screens */
+    }
+
+    button {
+        padding: 8px 16px;
+        /* Adjust button padding on smaller screens */
+    }
+
+    select {
+        padding: 8px;
+        margin: 8px 0;
+    }
 }
