@@ -35,30 +35,29 @@
   flex-grow: 1;
   justify-content: center;
   padding: 0 1rem;
-  /* Add padding to give some space around the cards */
+  
 }
 
 .nav-button {
-  /* No changes required here, but ensure they have a fixed width if not already set */
+  
   width: 100px;
-  /* Adjust the width as needed */
+ 
 }
 
-/* You might want to add some margin to the buttons if needed */
+
 .nav-button.prev-button {
   margin-right: 1rem;
-  /* Adjust as needed */
+
 }
 
 .nav-button.next-button {
   margin-left: 1rem;
-  /* Adjust as needed */
+  
 }
 
 /* Responsive design for smaller screens */
 @media (max-width: 1024px) {
   .booking-card {
-    /* Two cards per row with fixed width */
     width: calc(50% - 20px);
   }
 }

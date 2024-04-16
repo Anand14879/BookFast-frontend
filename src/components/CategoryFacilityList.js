@@ -1,8 +1,8 @@
 // FacilitiesList.js
 import React, { useState } from "react";
 import "../css/FacilitiesList.css";
-import generalLogo from "../images/general.jpg";
-import sportLogo from "../images/sport.jpg";
+import generalLogo from "../images/general.jpg"; //General picture for auditoriums
+import sportLogo from "../images/sport.jpg"; //sports fields picture
 
 // This is used to sort out the facilities on the basis of the categories available
 const CategoryFacilityList = ({

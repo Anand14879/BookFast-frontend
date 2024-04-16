@@ -48,7 +48,7 @@ const BookingModal = ({
   const renderSlots = () => {
     return (
       <div>
-        <p>Available Dates</p>
+        <h2>Available Dates</h2>
         <select value={selectedSlot} onChange={handleSlotChange}>
           {slots.map((slot) => (
             <option key={slot.id} value={slot.id}>
@@ -151,12 +151,11 @@ const BookingModal = ({
           alt={facility ? facility.Name : "Facility"}
           className="myfacility-image"
         />
-        <h2>Book Facility (ID: {facilityId})</h2>
-        <h2>User (ID: {userId})</h2>
-        <h2>User (Name: {userName})</h2>
+        <h2>Facility Details</h2>
+        <p> Facility (ID: {facilityId})</p>
         {facility ? (
           <>
-            <h2>Facility (Name: {facility.Name})</h2>
+            <p>Facility (Name: {facility.Name})</p>
             <div className="facility-description">
               <p>Facility (Description: {facility.Description})</p>
             </div>
@@ -164,6 +163,9 @@ const BookingModal = ({
         ) : (
           <p>Facility details not found.</p>
         )}
+        <h3>Your Details</h3>
+        <p>User (ID: {userId})</p>
+        <p>User (Name: {userName})</p>
         {slots.length > 0 ? (
           <>
             {renderSlots()}
@@ -171,7 +173,7 @@ const BookingModal = ({
             <button onClick={completeBooking}>Complete Booking</button>
           </>
         ) : (
-          <p>No available slots.</p>
+          <h2>No available slots.</h2>
         )}
 
         <button onClick={onClose}>Close</button>
