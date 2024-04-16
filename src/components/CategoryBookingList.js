@@ -136,15 +136,19 @@ const CategoryBookingList = ({ bookings, HeaderName }) => {
     const buttonClass =
       booking.status === "Booked" ? "pay-button" : "complete-button";
 
+    // console.log(booking);
+
     return (
       <div className="booking-card" key={booking.id}>
         <img src={imageSrc} alt={booking.status} className="status-image" />
-        {/* <p>Facility Id: {booking.facility_id}</p>
-        <p>Slot Id: {booking.slot_id}</p> */}
+        {/* <p>Facility Id: {booking.facility_id}</p> */}
+        {/* <p>Slot Id: {booking.slot_id}</p> */}
         <FacilitySlot
           facilityId={booking.facility_id}
           slotId={booking.slot_id}
+          info="Booking Details"
         />
+        <p>Slot Id: {booking.slot_id}</p>
         <p>Status: {booking.status}</p>
         {/* <button className={`action-button ${buttonClass}`}>{buttonText}</button> */}
         {booking.status === "Booked" && (
@@ -155,7 +159,6 @@ const CategoryBookingList = ({ bookings, HeaderName }) => {
             {buttonText}
           </button>
         )}
-
         {booking.status === "Pending" && (
           <button
             className={`action-button ${buttonClass}`}

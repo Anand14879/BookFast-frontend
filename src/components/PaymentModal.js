@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../css/PaymentModal.css";
+import FacilitySlot from "./FacilitySlot";
+import HandleKhaltiPayment from "./HandleKhaltiPayment";
 
 const PaymentModal = ({ booking, onClose }) => {
   const [amount, setAmount] = useState(0);
@@ -12,7 +14,7 @@ const PaymentModal = ({ booking, onClose }) => {
         `http://127.0.0.1:8000/api/facility/details?facility_id=${booking.facility_id}`
       );
       const data = await response.json();
-      setAmount(data.Daily_Cost); // Set the fetched amount
+      setAmount(data.Daily_Cost * 1.1); // Set the fetched amount Plus 10% charge for app
     };
 
     if (booking) {
@@ -55,9 +57,18 @@ const PaymentModal = ({ booking, onClose }) => {
     <div className="payment-modal-backdrop">
       <div className="payment-modal">
         <h2>Payment for Booking #{booking.id}</h2>
-        <p>Facility Id: {booking.facility_id}</p>
-        <p>Slot Id: {booking.slot_id}</p>
+        {/* <p>Facility Id: {booking.facility_id}</p>
+        <p>Slot Id: {booking.slot_id}</p> */}
+        <FacilitySlot
+          facilityId={booking.facility_id}
+          slotId={booking.slot_id}
+          info="Facility Details"
+        />
+        <p>Booking Charge: {"10%"}</p>
         <p>Total Amount: {amount}</p>
+        {/* Going to integrate Khalti payement here */}
+        <button onClick={HandleKhaltiPayment}>Esewa Payment</button>
+        {/* <></> */}
         <button onClick={processPayment} disabled={isProcessing}>
           Confirm Payment
         </button>

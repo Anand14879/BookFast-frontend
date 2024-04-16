@@ -11,6 +11,7 @@ function Register() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ function Register() {
       return;
     }
 
-    let item = { name, password, email };
+    let item = { name, password, email, phone };
     try {
       let response = await fetch("http://127.0.0.1:8000/api/register", {
         method: "POST",
@@ -77,6 +78,16 @@ function Register() {
                   value={email}
                   placeholder="Enter email"
                   onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  id="phone"
+                  value={phone}
+                  placeholder="Enter Phone Number"
+                  onChange={(e) => setPhone(e.target.value)}
                   required
                 />
               </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const FacilitySlot = ({ facilityId, slotId }) => {
+const FacilitySlot = ({ facilityId, slotId, info }) => {
   const [facilityDetails, setFacilityDetails] = useState({});
   const [slotDetails, setSlotDetails] = useState({});
 
@@ -31,6 +31,7 @@ const FacilitySlot = ({ facilityId, slotId }) => {
         }
         const data = await response.json();
         setSlotDetails(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error fetching facility details:", error);
         // Handle the error appropriately in your app
@@ -43,10 +44,11 @@ const FacilitySlot = ({ facilityId, slotId }) => {
 
   return (
     <div className="facility-slot-details">
-      <h3>Booking Information</h3>
+      <h3>{info}</h3>
       <p>Name: {facilityDetails.Name}</p>
       <p>Institution Name: {facilityDetails.Institution_Name}</p>
-      <p>Date: {slotDetails.date}</p>
+      <p>Facility Cost: Rs. {facilityDetails.Daily_Cost}</p>
+      <p>Date: {slotDetails.Date}</p>
     </div>
   );
 };
