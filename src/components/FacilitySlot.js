@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 const FacilitySlot = ({ facilityId, slotId, info }) => {
+  //   console.log(facilityId);
+  //   console.log(slotId); --> Console log is showing the slotId as needed.
+
   const [facilityDetails, setFacilityDetails] = useState({});
   const [slotDetails, setSlotDetails] = useState({});
 
@@ -33,7 +36,7 @@ const FacilitySlot = ({ facilityId, slotId, info }) => {
         setSlotDetails(data);
         // console.log(data);
       } catch (error) {
-        console.error("Error fetching facility details:", error);
+        console.error("Error fetching slot details:", error);
         // Handle the error appropriately in your app
       }
     };
@@ -48,7 +51,7 @@ const FacilitySlot = ({ facilityId, slotId, info }) => {
       <p>Name: {facilityDetails.Name}</p>
       <p>Institution Name: {facilityDetails.Institution_Name}</p>
       <p>Facility Cost: Rs. {facilityDetails.Daily_Cost}</p>
-      <p>Date: {slotDetails.Date}</p>
+      <p>Date: {slotDetails.date}</p>
     </div>
   );
 };
