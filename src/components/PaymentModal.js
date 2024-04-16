@@ -61,13 +61,12 @@ const PaymentModal = ({ booking, onClose }) => {
         <p>Slot Id: {booking.slot_id}</p> */}
         <FacilitySlot
           facilityId={booking.facility_id}
-          slotId={booking.slot_id}
-          info="Facility Details"
+           info="Facility Details"
         />
         <p>Booking Charge: {"10%"}</p>
         <p>Total Amount: {amount}</p>
         {/* Going to integrate Khalti payement here */}
-        <button onClick={HandleKhaltiPayment}>Esewa Payment</button>
+        <button onClick={HandleKhaltiPayment}>Khalti Payment</button>
         {/* <></> */}
         <button onClick={processPayment} disabled={isProcessing}>
           Confirm Payment

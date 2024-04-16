@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-const FacilitySlot = ({ facilityId, slotId, info }) => {
-  //   console.log(facilityId);
-  //   console.log(slotId); --> Console log is showing the slotId as needed.
-
+const FacilitySlot = ({ facilityId, info }) => {
   const [facilityDetails, setFacilityDetails] = useState({});
-  const [slotDetails, setSlotDetails] = useState({});
 
   useEffect(() => {
     const fetchFacilityDetails = async () => {
@@ -24,26 +20,8 @@ const FacilitySlot = ({ facilityId, slotId, info }) => {
       }
     };
 
-    const fetchSlotDetails = async () => {
-      try {
-        const response = await fetch(
-          `http://127.0.0.1:8000/api/slots/${slotId}`
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch slot details");
-        }
-        const data = await response.json();
-        setSlotDetails(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error fetching slot details:", error);
-        // Handle the error appropriately in your app
-      }
-    };
-
     fetchFacilityDetails();
-    fetchSlotDetails();
-  }, [facilityId, slotId]);
+  }, [facilityId]);
 
   return (
     <div className="facility-slot-details">
@@ -51,7 +29,6 @@ const FacilitySlot = ({ facilityId, slotId, info }) => {
       <p>Name: {facilityDetails.Name}</p>
       <p>Institution Name: {facilityDetails.Institution_Name}</p>
       <p>Facility Cost: Rs. {facilityDetails.Daily_Cost}</p>
-      <p>Date: {slotDetails.date}</p>
     </div>
   );
 };

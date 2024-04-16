@@ -8,6 +8,7 @@ import pendingLogo from "../images/pending.png";
 import paidLogo from "../images/paid.png";
 import refundedLogo from "../images/refunded.png";
 import defaultLogo from "../images/default.png";
+import SlotDate from "./SlotDate";
 
 //Here the main aim is to sort out the bookings based on their category/status
 const CategoryBookingList = ({ bookings, HeaderName }) => {
@@ -143,12 +144,9 @@ const CategoryBookingList = ({ bookings, HeaderName }) => {
         <img src={imageSrc} alt={booking.status} className="status-image" />
         {/* <p>Facility Id: {booking.facility_id}</p> */}
         {/* <p>Slot Id: {booking.slot_id}</p> */}
-        <FacilitySlot
-          facilityId={booking.facility_id}
-          slotId={booking.slot_id}
-          info="Booking Details"
-        />
+        <FacilitySlot facilityId={booking.facility_id} info="Booking Details" />
         <p>Slot Id: {booking.slot_id}</p>
+        <SlotDate slot_id={booking.slot_id} />
         <p>Status: {booking.status}</p>
         {/* <button className={`action-button ${buttonClass}`}>{buttonText}</button> */}
         {booking.status === "Booked" && (
