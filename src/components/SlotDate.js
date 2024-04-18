@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-const SlotDate = (slot_id) => {
-  const [slotDetails, setSlotDetails] = useState({});
+const SlotDate = ({ slot_id }) => {
+  // const [slotid, setSlotId] = useState([]);
+  const [slotDetails, setSlotDetails] = useState([]);
+
+  // setSlotId(slot_id);
 
   useEffect(() => {
     const fetchSlotDetails = async () => {
@@ -13,8 +16,8 @@ const SlotDate = (slot_id) => {
           throw new Error("Failed to fetch slot details");
         }
         const data = await response.json();
-        setSlotDetails(data);
-        // console.log(data);
+        setSlotDetails(() => data);
+        console.log(data);
       } catch (error) {
         console.error("Error fetching slot details:", error);
       }
@@ -24,9 +27,8 @@ const SlotDate = (slot_id) => {
   }, [slot_id]);
 
   return (
-    <div>
-      <p>Date: {slotDetails.date}</p>
-    </div>
+    // <div>{<p>Date: {slotDetails[0]?.date}</p>}</div>
+    <div>{<p>Date: {slotDetails.date}</p>}</div>
   );
 };
 
