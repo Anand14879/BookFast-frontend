@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const HandleKhaltiPayment = async () => {
   const payload = {
     return_url: "http://127.0.0.1:3000/bookings",
